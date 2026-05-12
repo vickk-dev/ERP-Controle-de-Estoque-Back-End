@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "La0s5h0p+s0=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\ganba\\source\\repos\\ERP-Ferramenteiro\\ERP-Ferramenteiro\\ERP-Ferramenteiro.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ganba\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.5\\microsoft.aspnetcore.openapi.10.0.5.nupkg.sha512",
+    "C:\\Users\\ganba\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512",
+    "C:\\Users\\ganba\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.23.0\\microsoft.visualstudio.azure.containers.tools.targets.1.23.0.nupkg.sha512"
+  ],
+  "logs": []
+}

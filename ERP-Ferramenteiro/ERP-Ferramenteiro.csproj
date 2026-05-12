@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>ERP_Ferramenteiro</RootNamespace>
+    <UserSecretsId>aba6c561-7a65-40ac-a696-b12617cec299</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Ferramenteiro.API\Controllers\" />
+    <Folder Include="Ferramenteiro.API\DTOs\" />
+    <Folder Include="Ferramenteiro.API\Middlewares\" />
+    <Folder Include="Ferramenteiro.Application\" />
+    <Folder Include="Ferramenteiro.Domain\Exceptions\" />
+    <Folder Include="Ferramenteiro.Domain\Enums\" />
+    <Folder Include="Ferramenteiro.Infra\Persistence\" />
+  </ItemGroup>
+
+</Project>
