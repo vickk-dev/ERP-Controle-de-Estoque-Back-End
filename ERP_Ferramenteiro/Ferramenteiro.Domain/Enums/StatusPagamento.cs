@@ -1,0 +1,1 @@
+public enum StatusPagamento { Pendente, Pago }
