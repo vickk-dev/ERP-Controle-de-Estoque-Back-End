@@ -1,1 +1,0 @@
-public enum TipoCobranca { Hora, Dia, Semana, Mes }
