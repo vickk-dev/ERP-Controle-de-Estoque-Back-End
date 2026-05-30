@@ -1,3 +1,8 @@
-
-public enum TipoCobranca { Hora, Dia, Semana, Mes }
-
+namespace ERP_Ferramenteiro.Domain.Enums
+{
+    public enum StatusPagamento
+    {
+        Pendente,
+        Pago
+    }
+}
