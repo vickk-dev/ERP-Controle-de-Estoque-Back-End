@@ -1,3 +1,3 @@
 
-public enum TipoCobranca { Hora, Dia, Semana, Mes }
+public enum StatusPagamento { Pago, Pendente, Em_atraso }
 

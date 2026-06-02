@@ -1,7 +1,4 @@
-﻿using System;
-using ERP_Ferramenteiro.Domain.Enums;
-
-namespace ERP_Ferramenteiro.Domain.Entities
+﻿namespace ERP_Ferramenteiro.Domain.Entities
 {
     public class Cliente
     {
@@ -43,6 +40,13 @@ namespace ERP_Ferramenteiro.Domain.Entities
             Estado = estado;
             Cep = cep;
             DataCadastro = DateTime.UtcNow;
+        }
+
+        public Cliente(string tipo, string documento, string nomeRazaoSocial, object nomeFantasia, string telefone, object logradouro, object numero, object bairro, object cidade, object estado, object cep)
+        {
+            Documento = documento;
+            NomeRazaoSocial = nomeRazaoSocial;
+            Telefone = telefone;
         }
     }
 }

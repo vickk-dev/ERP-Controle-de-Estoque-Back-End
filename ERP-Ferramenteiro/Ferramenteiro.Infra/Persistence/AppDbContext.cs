@@ -58,11 +58,16 @@ namespace ERP_Ferramenteiro.Infrastructure.Data
                 .HasForeignKey(l => l.ClienteId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Locacao>()
+                .Navigation(l => l.Itens)
+                .HasField("_itens");
+
             modelBuilder.Entity<LocacaoItem>()
                 .HasOne(li => li.Ferramenta)
                 .WithMany()
                 .HasForeignKey(li => li.FerramentaId)
                 .OnDelete(DeleteBehavior.Restrict);
+   
         }
     }
 }

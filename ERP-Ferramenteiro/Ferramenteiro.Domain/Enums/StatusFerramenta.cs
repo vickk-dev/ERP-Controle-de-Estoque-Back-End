@@ -1,2 +1,2 @@
 ﻿
-public enum StatusPagamento { Pendente, Pago }
+public enum StatusFerramenta { Disponivel, Alugada }
