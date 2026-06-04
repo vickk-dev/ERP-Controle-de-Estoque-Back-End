@@ -1,6 +1,3 @@
-using System;
-using ERP_Ferramenteiro.Domain.Enums;
-
 namespace ERP_Ferramenteiro.Domain.Entities
 {
 	public class Ferramenta
