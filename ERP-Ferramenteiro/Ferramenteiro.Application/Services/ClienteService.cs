@@ -1,5 +1,4 @@
 ﻿using ERP_Ferramenteiro.Application.DTOs; 
-using ERP_Ferramenteiro.Application.Interfaces;
 using ERP_Ferramenteiro.Domain.Entities;
 using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
 using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;

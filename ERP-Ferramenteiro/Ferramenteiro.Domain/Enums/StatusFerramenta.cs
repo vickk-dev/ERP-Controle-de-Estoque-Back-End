@@ -1,6 +1,4 @@
-﻿
-<<<<<<< HEAD
-namespace ERP_Ferramenteiro.Domain.Enums
+﻿namespace ERP_Ferramenteiro.Domain.Enums
 {
     public enum StatusFerramenta
     {
@@ -10,6 +8,3 @@ namespace ERP_Ferramenteiro.Domain.Enums
         Inativa
     }
 }
-=======
-public enum StatusFerramenta { Disponivel, Alugada }
->>>>>>> origin/homolog
