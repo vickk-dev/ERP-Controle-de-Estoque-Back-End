@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using ERP_Ferramenteiro.Domain.Enums;
-
 namespace ERP_Ferramenteiro.Domain.Entities
 {
 	public class Locacao
