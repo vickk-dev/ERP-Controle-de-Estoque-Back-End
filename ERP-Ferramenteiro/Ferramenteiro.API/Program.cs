@@ -1,61 +1,82 @@
-using Ferramenteiro.API.Middleware;
-using Ferramenteiro.API.Validators;
-using Ferramenteiro.Application.Interfaces;
-using Ferramenteiro.Application.UseCases.Clientes;
-using Ferramenteiro.Infra.Persistence.Repository;
+using Ferramenteiro.Application.Services;
 using Ferramenteiro.Infra.Persistence;
 using Microsoft.EntityFrameworkCore;
-using FluentValidation;
-using FluentValidation.AspNetCore;
-using Scalar.AspNetCore;
+using System.Globalization;
+using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// ── Controllers ───────────────────────────────────────────────────────────────
-builder.Services.AddControllers();
-
-// ── FluentValidation ──────────────────────────────────────────────────────────
-builder.Services.AddFluentValidationAutoValidation();
-builder.Services.AddValidatorsFromAssemblyContaining<CriarClienteValidator>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// ── Infra — Repositório em memória (desenvolvimento, sem banco de dados) ──────
-// Quando quiser usar banco de dados real, veja o bloco comentado abaixo.
-builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+// ── Serviços da Aplicação ─────────────────────────────────────────────────────
+builder.Services.AddScoped<IFaturamentoService, FaturamentoService>();
 
-
-// ── Application — Use Cases ───────────────────────────────────────────────────
-builder.Services.AddScoped<CriarClienteUseCase>();
-
-// ── OpenAPI / Scalar ──────────────────────────────────────────────────────────
-builder.Services.AddOpenApi(options =>
-{
-    options.AddDocumentTransformer((doc, ctx, ct) =>
+// ── Controllers + JSON (com suporte a DateOnly) ───────────────────────────────
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
     {
-        doc.Info.Title = "Ferramenteiro API";
-        doc.Info.Version = "v1";
-        doc.Info.Description = "ERP Ferramenteiro — módulo de Clientes (CPF/CNPJ único, RN01/RN02).";
-        return Task.CompletedTask;
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
     });
+
+// ── Swagger / OpenAPI ─────────────────────────────────────────────────────────
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new()
+    {
+        Title = "Ferramenteiro ERP API",
+        Version = "v1",
+        Description = "API de controle de estoque e contratos — Ferramenteiro"
+    });
+
+    // Inclui os comentários XML dos controllers (summary/remarks) no Swagger
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+        c.IncludeXmlComments(xmlPath);
 });
 
-// ── Build ─────────────────────────────────────────────────────────────────────
+// ── CORS (ajuste as origens conforme seu frontend) ────────────────────────────
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
-// Middleware global de exceções — deve ser o primeiro da cadeia
-app.UseMiddleware<GlobalExceptionMiddleware>();
-
+// ── Pipeline ──────────────────────────────────────────────────────────────────
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();            // /openapi/v1.json
-    app.MapScalarApiReference(); // /scalar/v1
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ferramenteiro v1"));
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
+app.UseAuthorization();
 app.MapControllers();
+
 app.Run();
 
+// ── Necessário para o WebApplicationFactory nos testes de integração ──────────
 public partial class Program { }
+
+// ── Conversor DateOnly ↔ JSON ("yyyy-MM-dd") ──────────────────────────────────
+public class DateOnlyJsonConverter : JsonConverter<DateOnly>
+{
+    private const string Format = "yyyy-MM-dd";
+
+    public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        => DateOnly.ParseExact(reader.GetString()!, Format, CultureInfo.InvariantCulture);
+
+    public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
+        => writer.WriteStringValue(value.ToString(Format, CultureInfo.InvariantCulture));
+}

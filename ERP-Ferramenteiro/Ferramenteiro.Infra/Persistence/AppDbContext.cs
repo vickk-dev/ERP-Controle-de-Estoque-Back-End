@@ -9,6 +9,8 @@ public class AppDbContext : DbContext
 
     public DbSet<Cliente> Clientes => Set<Cliente>();
 
+    public DbSet<Contrato> Contratos => Set<Contrato>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -17,7 +19,6 @@ public class AppDbContext : DbContext
         {
             entity.HasKey(c => c.Id);
 
-            // RN01 — índice único para garantir unicidade do documento no banco
             entity.HasIndex(c => c.Documento)
                   .IsUnique()
                   .HasDatabaseName("IX_Clientes_Documento");
@@ -30,7 +31,6 @@ public class AppDbContext : DbContext
                   .IsRequired()
                   .HasMaxLength(200);
 
-            // RN02 — endereço obrigatório e completo
             entity.Property(c => c.EnderecoCompleto)
                   .IsRequired()
                   .HasMaxLength(500);
