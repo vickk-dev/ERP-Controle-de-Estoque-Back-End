@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ERP_Ferramenteiro.Domain.Entities
+namespace Ferramenteiro.Domain.Entities
 {
     public class Funcionario
     {

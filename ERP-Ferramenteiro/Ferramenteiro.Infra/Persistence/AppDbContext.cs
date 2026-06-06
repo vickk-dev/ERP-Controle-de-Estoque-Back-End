@@ -1,44 +1,42 @@
-﻿using ERP_Ferramenteiro.Domain.Entities;
+using Ferramenteiro.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ERP_Ferramenteiro.Infra.Persistence
+namespace Ferramenteiro.Infra.Persistence;
+
+public class AppDbContext : DbContext
 {
-    public class AppDbContext : DbContext
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+    public DbSet<Cliente> Clientes => Set<Cliente>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+        base.OnModelCreating(modelBuilder);
 
-        public DbSet<Funcionario> Funcionarios => Set<Funcionario>();
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        modelBuilder.Entity<Cliente>(entity =>
         {
-            modelBuilder.Entity<Funcionario>(e =>
-            {
-                e.ToTable("funcionarios");
-                e.HasKey(f => f.Id);
+            entity.HasKey(c => c.Id);
 
-                e.Property(f => f.Matricula)
-                    .IsRequired()
-                    .HasMaxLength(20);
+            // RN01 — índice único para garantir unicidade do documento no banco
+            entity.HasIndex(c => c.Documento)
+                  .IsUnique()
+                  .HasDatabaseName("IX_Clientes_Documento");
 
-                e.Property(f => f.Nome)
-                    .IsRequired()
-                    .HasMaxLength(150);
+            entity.Property(c => c.Documento)
+                  .IsRequired()
+                  .HasMaxLength(14);
 
-                e.Property(f => f.Email)
-                    .IsRequired()
-                    .HasMaxLength(200);
+            entity.Property(c => c.NomeRazaoSocial)
+                  .IsRequired()
+                  .HasMaxLength(200);
 
-                e.HasIndex(f => f.Email)
-                    .IsUnique()
-                    .HasDatabaseName("IX_Funcionarios_Email");
+            // RN02 — endereço obrigatório e completo
+            entity.Property(c => c.EnderecoCompleto)
+                  .IsRequired()
+                  .HasMaxLength(500);
 
-                e.Property(f => f.SenhaHash)
-                    .IsRequired()
-                    .HasMaxLength(100);   
-
-                e.Property(f => f.Ativo)
-                    .IsRequired();
-            });
-        }
+            entity.Property(c => c.Telefone)
+                  .HasMaxLength(11);
+        });
     }
 }
