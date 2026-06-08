@@ -1,29 +1,43 @@
-using ERP_Ferramenteiro.Application.Services;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Services;
-using ERP_Ferramenteiro.Ferramenteiro.Infra.Data;
-using ERP_Ferramenteiro.Infrastructure.Data; 
+using ERP_Ferramenteiro.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
-
+// Controllers
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
-builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 
-builder.Services.AddHttpClient<IViaCepService, ViaCepService>();
+// Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new()
+    {
+        Title = "ERP Ferramenteiro API",
+        Version = "v1",
+        Description = "API para gerenciamento de locação de ferramentas"
+    });
+});
 
-builder.Services.AddScoped<IClienteService, ClienteService>();
+// Banco de dados (ajuste a connection string no appsettings.json)
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Injeção de dependência (adicione seus services e repositories aqui)
+// builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+// builder.Services.AddScoped<IClienteService, ClienteService>();
+
 var app = builder.Build();
 
+// Swagger só em desenvolvimento
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "ERP Ferramenteiro v1");
+        c.RoutePrefix = string.Empty; // Abre o Swagger na raiz "/"
+    });
 }
 
 app.UseHttpsRedirection();

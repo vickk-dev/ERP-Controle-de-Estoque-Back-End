@@ -1,9 +1,8 @@
-﻿using ERP_Ferramenteiro.Application.DTOs; 
-using ERP_Ferramenteiro.Application.Interfaces;
+﻿
 using ERP_Ferramenteiro.Domain.Entities;
 using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
 using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
-using ERP_Ferramenteiro.Ferramenteiro.Infra.Data;
+
 
 namespace ERP_Ferramenteiro.Application.Services
 {
@@ -22,7 +21,7 @@ namespace ERP_Ferramenteiro.Application.Services
         {
             var documentoLimpo = request.Documento.Replace(".", "").Replace("-", "").Replace("/", "");
 
-            var existe = await _clienteRepository.ExistePorDocumentoAsync(documentoLimpo, cancellationToken);
+            var existe = await _clienteRepository.ExisteDocumentoAsync(documentoLimpo, cancellationToken);
             if (existe)
             {
                 throw new InvalidOperationException("Já existe um cliente com esse documento.");

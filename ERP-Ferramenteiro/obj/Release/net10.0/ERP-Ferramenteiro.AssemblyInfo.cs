@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERP-Ferramenteiro")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5289ba67a18b800a38088652afaae1890f71475e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ff681c855c634ab421130ce19e1a5d0795a825a")]
 [assembly: System.Reflection.AssemblyProductAttribute("ERP-Ferramenteiro")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERP-Ferramenteiro")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

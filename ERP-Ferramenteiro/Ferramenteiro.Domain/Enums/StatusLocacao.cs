@@ -1,2 +1,2 @@
 ﻿
-public enum StatusLocacao { Aberta, Concluida, Cancelada }
+public enum StatusLocacao { Aberta, Ativa, Concluida, Cancelada }
