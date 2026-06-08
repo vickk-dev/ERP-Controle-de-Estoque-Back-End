@@ -22,6 +22,21 @@ builder.Services.AddHttpClient<IViaCepService, ViaCepService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ILocacaoRepository, LocacaoRepository>();
 builder.Services.AddScoped<IFerramentaRepository, FerramentaRepository>()
+    options.UseNpgsql(connectionString));
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+
+// --- Repositórios ---
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+
+// --- Clientes Externos ---
+builder.Services.AddHttpClient<IViaCepService, ViaCepService>();
+
+// --- Serviços ---
+builder.Services.AddScoped<EstoqueService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

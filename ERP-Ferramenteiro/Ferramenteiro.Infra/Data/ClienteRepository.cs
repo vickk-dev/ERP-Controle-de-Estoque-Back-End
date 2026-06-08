@@ -1,5 +1,4 @@
-﻿
-using ERP_Ferramenteiro.Domain.Entities;
+﻿using ERP_Ferramenteiro.Domain.Entities;
 using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
 using ERP_Ferramenteiro.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +14,8 @@ namespace ERP_Ferramenteiro.Ferramenteiro.Infra.Data
             _context = context;
         }
 
-        public async Task<bool> ExisteDocumentoAsync(string documento, CancellationToken cancellationToken)
+        // Alterado de ExisteDocumentoAsync para ExistePorDocumentoAsync
+        public async Task<bool> ExistePorDocumentoAsync(string documento, CancellationToken cancellationToken)
         {
             return await _context.Clientes
                 .AsNoTracking()
