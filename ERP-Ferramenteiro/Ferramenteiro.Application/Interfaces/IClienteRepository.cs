@@ -4,7 +4,7 @@ namespace ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces
 {
     public interface IClienteRepository
     {
-        Task<bool> ExistePorDocumentoAsync(string documentoLimpo, CancellationToken cancellationToken);
+        Task<bool> ExisteDocumentoAsync(string documentoLimpo, CancellationToken cancellationToken);
         Task AdicionarAsync(Cliente cliente, CancellationToken cancellationToken);
 
 
