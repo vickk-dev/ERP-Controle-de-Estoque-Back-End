@@ -12,5 +12,7 @@ namespace ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces
     {
         Task<IEnumerable<LocacaoAtivaResponse>> ObterPainelAtivosAsync(CancellationToken cancellationToken);
     }
-}
+
+    Task<Locacao?> ObterLocacaoPorIdComVinculosAsync(Guid id, CancellationToken cancellationToken);
+    }
 
