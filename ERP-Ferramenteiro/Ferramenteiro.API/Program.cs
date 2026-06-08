@@ -1,3 +1,7 @@
+using ERP_Ferramenteiro.Application.Services;
+using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
+using ERP_Ferramenteiro.Ferramenteiro.Application.Services;
+using ERP_Ferramenteiro.Ferramenteiro.Infra.Data;
 using ERP_Ferramenteiro.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.SwaggerGen;
@@ -26,6 +30,21 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Injeção de dependência (adicione seus services e repositories aqui)
 // builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 // builder.Services.AddScoped<IClienteService, ClienteService>();
+
+    options.UseNpgsql(connectionString));
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+
+// --- Repositórios ---
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+
+// --- Clientes Externos ---
+builder.Services.AddHttpClient<IViaCepService, ViaCepService>();
+
+// --- Serviços ---
+builder.Services.AddScoped<EstoqueService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
 
 var app = builder.Build();
 
