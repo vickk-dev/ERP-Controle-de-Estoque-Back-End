@@ -24,7 +24,9 @@ namespace ERP_Ferramenteiro.Domain.Entities
 
 		public Locacao(Guid clienteId, Guid funcionarioId, DateTime dataFimPrevista)
 		{
-			if (dataFimPrevista <= DateTime.UtcNow)
+            if (clienteId == Guid.Empty) throw new ArgumentException("Cliente inválido.");
+            if (funcionarioId == Guid.Empty) throw new ArgumentException("Funcionário inválido.");
+            if (dataFimPrevista <= DateTime.UtcNow)
 				throw new ArgumentException("A data de devolução prevista deve ser no futuro.");
 
 			Id = Guid.NewGuid();
@@ -59,8 +61,11 @@ namespace ERP_Ferramenteiro.Domain.Entities
 
 		public void EncerrarLocacao()
 		{
-			Status = StatusLocacao.Concluida;
-			DataDevolucaoReal = DateTime.UtcNow;
-		}
+            if (Status == StatusLocacao.Concluida)
+                throw new InvalidOperationException("Esta locação já foi encerrada anteriormente.");
+
+            Status = StatusLocacao.Concluida;
+            DataDevolucaoReal = DateTime.UtcNow;
+        }
 	}
 }
