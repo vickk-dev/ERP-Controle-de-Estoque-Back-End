@@ -1,4 +1,9 @@
-﻿using ERP_Ferramenteiro.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using ERP_Ferramenteiro.Domain.Entities;
 using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
 using ERP_Ferramenteiro.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +22,7 @@ namespace ERP_Ferramenteiro.Ferramenteiro.Infra.Data
         public async Task<IEnumerable<Locacao>> ObterLocacoesAtivasAsync(CancellationToken cancellationToken)
         {
             return await _context.Locacoes
-                .AsNoTracking()         
+                .AsNoTracking()
                 .Include(l => l.Cliente)
                 .Include(l => l.Itens)
                 .ThenInclude(i => i.Ferramenta)
@@ -25,5 +30,13 @@ namespace ERP_Ferramenteiro.Ferramenteiro.Infra.Data
                 .ToListAsync(cancellationToken);
         }
 
+        public async Task<Locacao?> ObterLocacaoPorIdComVinculosAsync(Guid id, CancellationToken cancellationToken)
+        {
+            return await _context.Locacoes
+                .Include(l => l.Cliente)
+                .Include(l => l.Itens)
+                .ThenInclude(i => i.Ferramenta)
+                .FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
+        }
     }
 }

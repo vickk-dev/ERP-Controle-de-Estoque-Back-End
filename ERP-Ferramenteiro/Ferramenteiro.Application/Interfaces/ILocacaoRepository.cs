@@ -6,13 +6,6 @@ namespace ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces
     public interface ILocacaoRepository
     {
         Task<IEnumerable<Locacao>> ObterLocacoesAtivasAsync(CancellationToken cancellationToken);
+        Task<Locacao?> ObterLocacaoPorIdComVinculosAsync(Guid id, CancellationToken cancellationToken);
     }
-
-    public interface ILocacaoService
-    {
-        Task<IEnumerable<LocacaoAtivaResponse>> ObterPainelAtivosAsync(CancellationToken cancellationToken);
-    }
-
-    Task<Locacao?> ObterLocacaoPorIdComVinculosAsync(Guid id, CancellationToken cancellationToken);
-    }
-
+}

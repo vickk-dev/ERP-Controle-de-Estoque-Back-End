@@ -1,4 +1,9 @@
-﻿using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
 using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
 
 namespace ERP_Ferramenteiro.Ferramenteiro.Application.Services
@@ -22,13 +27,18 @@ namespace ERP_Ferramenteiro.Ferramenteiro.Application.Services
 
                 return new LocacaoAtivaResponse(
                     LocacaoId: l.Id,
-                    ClienteNome: l.Cliente.NomeRazaoSocial, 
-                    MaquinaModelo: primeiroItem?.Ferramenta.Nome ?? "N/A", 
+                    ClienteNome: l.Cliente.NomeRazaoSocial,
+                    MaquinaModelo: primeiroItem?.Ferramenta.Nome ?? "N/A",
                     CodigoPatrimonio: primeiroItem?.Ferramenta.PatrimonioId ?? "N/A",
-                    DataPrevistaDevolucao: l.DataFimPrevista, 
-                    ValorTotal: l.Faturamento?.ValorFaturado?? 0m 
+                    DataPrevistaDevolucao: l.DataFimPrevista,
+                    ValorTotal: l.Faturamento?.ValorFaturado ?? 0m
                 );
             });
+        }
+
+        public async Task RegistrarDevolucaoAsync(Guid locacaoId, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
     }
 }

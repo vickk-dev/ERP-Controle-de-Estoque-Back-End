@@ -1,5 +1,4 @@
-﻿
-using ERP_Ferramenteiro.Domain.Entities;
+﻿using ERP_Ferramenteiro.Domain.Entities;
 using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
 using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
 
@@ -21,7 +20,8 @@ namespace ERP_Ferramenteiro.Application.Services
         {
             var documentoLimpo = request.Documento.Replace(".", "").Replace("-", "").Replace("/", "");
 
-            var existe = await _clienteRepository.ExisteDocumentoAsync(documentoLimpo, cancellationToken);
+            // AQUI ESTAVA O ERRO: alterado para ExistePorDocumentoAsync
+            var existe = await _clienteRepository.ExistePorDocumentoAsync(documentoLimpo, cancellationToken);
             if (existe)
             {
                 throw new InvalidOperationException("Já existe um cliente com esse documento.");
@@ -33,10 +33,10 @@ namespace ERP_Ferramenteiro.Application.Services
                 throw new ArgumentException("CEP inválido ou inexistente na base dos Correios.");
             }
 
-         var cliente = new Cliente(
+            var cliente = new Cliente(
                 tipo: request.TipoDocumento,
                 documento: documentoLimpo,
-                nomeRazaoSocial: request.NomeRazaoSocial, 
+                nomeRazaoSocial: request.NomeRazaoSocial,
                 nomeFantasia: request.NomeFantasia,
                 telefone: request.Telefone,
                 logradouro: endereco.Logradouro,
@@ -47,12 +47,10 @@ namespace ERP_Ferramenteiro.Application.Services
                 cep: request.Cep
             );
 
-          
+
             await _clienteRepository.AdicionarAsync(cliente, cancellationToken);
 
             return cliente.Id;
         }
     }
-
-   
 }
