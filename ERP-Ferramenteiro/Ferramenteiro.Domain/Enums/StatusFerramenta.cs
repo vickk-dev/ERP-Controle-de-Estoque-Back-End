@@ -1,2 +1,9 @@
-﻿
-public enum StatusFerramenta { Disponivel, Alugada }
+﻿namespace Ferramenteiro.Domain.Enums
+{
+    public enum StatusFerramenta
+    {
+        Disponivel,
+        Alugada,
+        Manutencao
+    }
+}

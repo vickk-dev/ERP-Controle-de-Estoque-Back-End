@@ -1,4 +1,6 @@
-namespace ERP_Ferramenteiro.Domain.Entities
+﻿using Ferramenteiro.Domain.Enums;
+
+namespace Ferramenteiro.Domain.Entities
 {
     public class LocacaoItem
     {
@@ -7,7 +9,7 @@ namespace ERP_Ferramenteiro.Domain.Entities
         public Guid FerramentaId { get; private set; }
         public TipoCobranca TipoCobranca { get; private set; }
         public int QuantidadePeriodo { get; private set; }
-        public decimal ValorUnitarioAplicado { get; private set; } // Snapshot de preço
+        public decimal ValorUnitarioAplicado { get; private set; }
 
         public virtual Locacao Locacao { get; private set; }
         public virtual Ferramenta Ferramenta { get; private set; }
@@ -25,4 +27,3 @@ namespace ERP_Ferramenteiro.Domain.Entities
         }
     }
 }
-

@@ -1,33 +1,49 @@
-using ERP_Ferramenteiro.Application.Services;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Services;
-using ERP_Ferramenteiro.Ferramenteiro.Infra.Data;
-using ERP_Ferramenteiro.Infrastructure.Data; 
+﻿using Ferramenteiro.API.Middleware;
+using Ferramenteiro.API.Validators;
+using Ferramenteiro.Application.Interfaces;
+using Ferramenteiro.Application.UseCases.Clientes;
+using Ferramenteiro.Infra.Persistence.Repository;
+using Ferramenteiro.Infra.Persistence;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CriarClienteValidator>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<CriarClienteUseCase>();
 
-builder.Services.AddHttpClient<IViaCepService, ViaCepService>();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((doc, ctx, ct) =>
+    {
+        doc.Info.Title = "Ferramenteiro API";
+        doc.Info.Version = "v1";
+        doc.Info.Description = "ERP Ferramenteiro - módulo de Clientes (CPF/CNPJ único, RN01/RN02).";
+        return Task.CompletedTask;
+    });
+});
 
-builder.Services.AddScoped<IClienteService, ClienteService>();
 var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
-app.UseAuthorization();
 app.MapControllers();
-
 app.Run();
+
+public partial class Program { }

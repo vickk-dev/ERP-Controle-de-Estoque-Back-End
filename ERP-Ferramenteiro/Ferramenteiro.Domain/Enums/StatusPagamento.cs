@@ -1,3 +1,8 @@
-
-public enum StatusPagamento { Pago, Pendente, Em_atraso }
-
+﻿namespace Ferramenteiro.Domain.Enums
+{
+    public enum StatusPagamento
+    {
+        Pendente,
+        Pago
+    }
+}
