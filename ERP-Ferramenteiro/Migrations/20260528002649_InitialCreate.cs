@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ERP_Ferramenteiro.Migrations
+namespace Ferramenteiro.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

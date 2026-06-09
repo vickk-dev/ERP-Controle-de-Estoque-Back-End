@@ -1,9 +1,9 @@
-﻿using ERP_Ferramenteiro.Domain.Entities;
-using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
+﻿using Ferramenteiro.Domain.Entities;
+using Ferramenteiro.API.DTOs;
+using Ferramenteiro.Application.Interfaces;
 
 
-namespace ERP_Ferramenteiro.Application.Services
+namespace Ferramenteiro.Application.Services
 {
     public class ClienteService : IClienteService
     {
@@ -20,7 +20,6 @@ namespace ERP_Ferramenteiro.Application.Services
         {
             var documentoLimpo = request.Documento.Replace(".", "").Replace("-", "").Replace("/", "");
 
-            // AQUI ESTAVA O ERRO: alterado para ExistePorDocumentoAsync
             var existe = await _clienteRepository.ExistePorDocumentoAsync(documentoLimpo, cancellationToken);
             if (existe)
             {

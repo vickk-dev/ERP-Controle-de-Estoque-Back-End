@@ -1,8 +1,9 @@
-﻿using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
-using ERP_Ferramenteiro.Infrastructure.Data;
+﻿using Ferramenteiro.Application.Interfaces;
+using Ferramenteiro.Infra.Data;
 using Microsoft.EntityFrameworkCore.Storage;
+using Ferramenteiro.Infra.Persistence;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.Infra.Persistence
+namespace Ferramenteiro.Infra.Persistence
 {
     public class UnitOfWork : IUnitOfWork
 

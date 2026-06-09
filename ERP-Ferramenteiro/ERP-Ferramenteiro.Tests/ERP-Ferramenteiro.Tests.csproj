@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <RootNamespace>ERP_Ferramenteiro.Tests</RootNamespace>
+    <RootNamespace>Ferramenteiro.Tests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ERP-Ferramenteiro.csproj" />
+    <ProjectReference Include=".\ERP-Ferramenteiro.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿namespace ERP_Ferramenteiro.Domain.Enums
+
+namespace Ferramenteiro.Domain.Enums
 {
     public enum StatusFerramenta
     {
@@ -8,3 +9,4 @@
         Inativa
     }
 }
+

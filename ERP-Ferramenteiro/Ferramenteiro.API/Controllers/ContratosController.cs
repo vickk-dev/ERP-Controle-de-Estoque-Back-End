@@ -1,9 +1,9 @@
 ﻿
-using global::ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
+using global::Ferramenteiro.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ERP_Ferramenteiro.API.Controllers;
+namespace Ferramenteiro.API.Controllers;
 
 
 [ApiController]

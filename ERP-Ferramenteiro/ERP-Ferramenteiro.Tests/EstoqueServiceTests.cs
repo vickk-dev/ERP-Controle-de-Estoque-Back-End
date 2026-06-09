@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-using ERP_Ferramenteiro.Application.DTOs;
-using ERP_Ferramenteiro.Application.Services;
-using ERP_Ferramenteiro.Domain.Entities;
-using ERP_Ferramenteiro.Infrastructure.Data;
+using Ferramenteiro.Application.DTOs;
+using Ferramenteiro.Application.Services;
+using Ferramenteiro.Domain.Entities;
+using Ferramenteiro.Infrastructure.Data;
 
-namespace ERP_Ferramenteiro.Tests.Services
+namespace Ferramenteiro.Tests.Services
 {
     public class EstoqueServiceTests
     {

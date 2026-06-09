@@ -1,4 +1,4 @@
-namespace ERP_Ferramenteiro.Domain.Enums
+namespace Ferramenteiro.Domain.Enums
 {
     public enum StatusPagamento
     {
@@ -7,3 +7,4 @@ namespace ERP_Ferramenteiro.Domain.Enums
         Em_atraso
     }
 }
+

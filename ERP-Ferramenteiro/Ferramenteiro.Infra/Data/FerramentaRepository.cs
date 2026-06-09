@@ -1,11 +1,17 @@
-﻿
-using ERP_Ferramenteiro.Domain.Entities;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
-using ERP_Ferramenteiro.Infrastructure.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Ferramenteiro.Domain.Entities;
+using Ferramenteiro.Domain.Enums;
+using Ferramenteiro.Infra.Persistence;
+using Microsoft.EntityFrameworkCore;
+using Ferramenteiro.Application.Interfaces;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace ERP_Ferramenteiro.Infrastructure.Repositories;
+namespace Ferramenteiro.Infrastructure.Repositories;
 
 public class FerramentaRepository : IFerramentaRepository
 {

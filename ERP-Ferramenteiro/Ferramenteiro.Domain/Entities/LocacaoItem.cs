@@ -1,6 +1,7 @@
-using ERP_Ferramenteiro.Domain.Enums;
+using System;
+using Ferramenteiro.Domain.Enums;
 
-namespace ERP_Ferramenteiro.Domain.Entities
+namespace Ferramenteiro.Domain.Entities
 {
     public class LocacaoItem
     {
@@ -27,4 +28,3 @@ namespace ERP_Ferramenteiro.Domain.Entities
         }
     }
 }
-

@@ -1,7 +1,6 @@
-﻿using ERP_Ferramenteiro.Domain.Entities;
-using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
+﻿using Ferramenteiro.Domain.Entities;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces
+namespace Ferramenteiro.Application.Interfaces
 {
     public interface ILocacaoRepository
     {

@@ -1,6 +1,6 @@
-﻿using ERP_Ferramenteiro.Domain.Entities;
+﻿using Ferramenteiro.Domain.Entities;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces
+namespace Ferramenteiro.Application.Interfaces
 {
     public interface IFerramentaRepository
     {

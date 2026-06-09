@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ERP_Ferramenteiro.Application.DTOs
+namespace Ferramenteiro.Application.DTOs
 {
     public class CadastroCatalogoDto
     {

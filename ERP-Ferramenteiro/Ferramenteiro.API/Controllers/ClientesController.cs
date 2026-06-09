@@ -1,9 +1,9 @@
 ﻿
-using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
+using Ferramenteiro.API.DTOs;
+using Ferramenteiro.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ERP_Ferramenteiro.API.Controllers
+namespace Ferramenteiro.API.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")] 

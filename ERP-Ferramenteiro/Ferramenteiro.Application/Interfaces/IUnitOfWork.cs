@@ -1,4 +1,4 @@
-﻿namespace ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces
+﻿namespace Ferramenteiro.Application.Interfaces
 {
     public interface IUnitOfWork
     {

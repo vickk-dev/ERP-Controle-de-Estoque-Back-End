@@ -1,8 +1,8 @@
-﻿using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
+﻿using Ferramenteiro.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.API.Controllers
+namespace Ferramenteiro.API.Controllers
 {
     [Authorize]
     [ApiController]

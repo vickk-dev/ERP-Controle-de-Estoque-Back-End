@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using ERP_Ferramenteiro.Application.DTOs;
-using ERP_Ferramenteiro.Application.Services;
+using Ferramenteiro.Application.DTOs;
+using Ferramenteiro.Application.Services;
 
-namespace ERP_Ferramenteiro.API.Controllers
+namespace Ferramenteiro.API.Controllers
 {
     [ApiController]
     [Route("api/v1/estoque")]

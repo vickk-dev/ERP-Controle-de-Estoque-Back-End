@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ERP_Ferramenteiro.Domain.Entities;
-using ERP_Ferramenteiro.Infrastructure.Data;
-using ERP_Ferramenteiro.Application.DTOs;
+using Ferramenteiro.Domain.Entities;
+using Ferramenteiro.Infra.Data;
+using Ferramenteiro.Infra.Persistence;
+using Ferramenteiro.Application.DTOs;
 
-namespace ERP_Ferramenteiro.Application.Services
+namespace Ferramenteiro.Application.Services
 {
     public class EstoqueService
     {

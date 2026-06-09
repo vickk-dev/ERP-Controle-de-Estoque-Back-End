@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ERP_Ferramenteiro.Domain.Entities;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
-using ERP_Ferramenteiro.Infrastructure.Data;
+using Ferramenteiro.Domain.Entities;
+using Ferramenteiro.Domain.Enums; 
+using Ferramenteiro.Infra.Persistence; 
 using Microsoft.EntityFrameworkCore;
+using Ferramenteiro.Application.Interfaces;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.Infra.Data
+namespace Ferramenteiro.Infra.Data 
 {
     public class LocacaoRepository : ILocacaoRepository
     {

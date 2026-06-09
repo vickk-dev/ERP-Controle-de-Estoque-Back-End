@@ -1,2 +1,10 @@
-﻿
-public enum StatusLocacao { Aberta, Ativa, Concluida, Cancelada }
+namespace Ferramenteiro.Domain.Enums
+{
+    public enum StatusLocacao
+    {
+        Ativa,
+        Aberta,
+        Concluida,
+        Cancelada
+    }
+}

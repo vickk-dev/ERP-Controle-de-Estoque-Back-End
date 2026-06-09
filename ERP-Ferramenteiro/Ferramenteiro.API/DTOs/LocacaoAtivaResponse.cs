@@ -1,4 +1,4 @@
-﻿namespace ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
+﻿namespace Ferramenteiro.API.DTOs;
 public record LocacaoAtivaResponse(
     Guid LocacaoId,
     string ClienteNome,

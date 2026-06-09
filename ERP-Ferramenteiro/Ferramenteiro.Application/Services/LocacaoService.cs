@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
+using Ferramenteiro.API.DTOs;
+using Ferramenteiro.Application.Interfaces;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.Application.Services
+namespace Ferramenteiro.Application.Services
 {
     public class LocacaoService : ILocacaoService
     {
