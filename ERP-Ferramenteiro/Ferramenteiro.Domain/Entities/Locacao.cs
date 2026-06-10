@@ -5,7 +5,7 @@ using Ferramenteiro.Domain.Enums;
 // ── IMPORTANTE ────────────────────────────────────────────────────────────────
 // Se Cliente, Funcionario, Faturamento, LocacaoItem e Ferramenta estiverem no
 // mesmo namespace (ERP_Ferramenteiro.Domain.Entities), o using abaixo resolve
-// todos de uma vez. Ajuste o namespace caso alguma entidade fique em subpasta.
+// todos de uma vez. Ajuste o namespace caso alguma entidade fique em subpasta. Teste Teste
 // ─────────────────────────────────────────────────────────────────────────────
 using Ferramenteiro.Domain.Entities;
 
