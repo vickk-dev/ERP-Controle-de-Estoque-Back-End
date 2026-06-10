@@ -1,0 +1,14 @@
+[33m< acde536[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mhomolog[m[33m, [m[1;31morigin/homolog[m[33m)[m Feat: mesclando Branchs
+[33m< 48a3889[m Ajustes de cards
+[33m< c9c1979[m Merge pull request #20 from vickk-dev/API_Locação_Baixa_de_Contrato_e_Liberação_de_Máquina
+[33m< 9fe2384[m[33m ([m[1;31morigin/API_Locação_Baixa_de_Contrato_e_Liberação_de_Máquina[m[33m)[m Merge branch 'homolog' into API_Locação_Baixa_de_Contrato_e_Liberação_de_Máquina
+[33m< e759850[m [API/Locação] Baixa de Contrato e Liberação de Máquina
+[33m< 3cde6ba[m Merge pull request #19 from vickk-dev/API_Dashboard_Listagem_de_Contratos_Ativos
+[33m< 0f3ca80[m[33m ([m[1;31morigin/API_Dashboard_Listagem_de_Contratos_Ativos[m[33m)[m Merge branch 'homolog' into API_Dashboard_Listagem_de_Contratos_Ativos
+[33m< b4d98db[m [API/Dashboard] Listagem de Contratos Ativos
+[33m< 2b6bda5[m[33m ([m[1;31morigin/Extrato-de-Faturamento-por-Período[m[33m)[m Extrato de faturamento por periodo
+[33m< 6ca9e4b[m[33m ([m[1;31morigin/Checkout_Unitario_Bloqueio_Transacional[m[33m)[m Resolve merge conflicts with homolog
+[33m< f2f85de[m Merge homolog into Checkout_Unitario_Bloqueio_Transacional
+[33m< 7ff681c[m Merge pull request #15 from vickk-dev/feature/insercao_de_catalogo_patrimonio_fisico
+[33m< 9f56e16[m[33m ([m[1;31morigin/feature/insercao_de_catalogo_patrimonio_fisico[m[33m)[m [API/Estoque]insercao_de_catalogo_patrimonio_fisico
+[33m< ea7c13d[m feat: implementa motor de checkout transacional para cadastro de catalogo

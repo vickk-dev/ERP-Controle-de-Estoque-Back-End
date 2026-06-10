@@ -1,22 +1,25 @@
-using Ferramenteiro.Application.Services;
-using Ferramenteiro.Application.Interfaces;
-using Ferramenteiro.Infra.Persistence;
-using Ferramenteiro.Infra.Data;
-using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Scalar.AspNetCore;
+
+// Namespaces do projeto
+using Ferramenteiro.API.Middleware;
+using Ferramenteiro.API.Validators;
+using Ferramenteiro.Application.Interfaces;
+using Ferramenteiro.Application.Services;
+using Ferramenteiro.Application.UseCases.Clientes;
+using Ferramenteiro.Infra.Data;
+using Ferramenteiro.Infra.Persistence;
 using Ferramenteiro.Infrastructure.Repositories;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- Configuração do Banco ---
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
-
-// --- CORS Unificado ---
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -27,44 +30,53 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(connectionString));
 
-// --- Injeções de Dependência ---
+builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CriarClienteValidator>();
+
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ILocacaoRepository, LocacaoRepository>();
 builder.Services.AddScoped<IFerramentaRepository, FerramentaRepository>();
+
 builder.Services.AddHttpClient<IViaCepService, ViaCepService>();
 builder.Services.AddScoped<EstoqueService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 
-var app = builder.Build();
+// Use Cases
+builder.Services.AddScoped<CriarClienteUseCase>();
 
-// --- Middleware de Erro ---
-app.UseExceptionHandler(errorApp =>
+builder.Services.AddOpenApi(options =>
 {
-    errorApp.Run(async context =>
+    options.AddDocumentTransformer((doc, ctx, ct) =>
     {
-        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-        context.Response.ContentType = "application/json";
-        var error = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-        if (error != null)
-        {
-            await context.Response.WriteAsync(JsonSerializer.Serialize(new { mensagem = error.Message }));
-        }
+        doc.Info.Title = "Ferramenteiro API";
+        doc.Info.Version = "v1";
+        doc.Info.Description = "ERP Ferramenteiro — módulo de Clientes, Estoque e Locações.";
+        return Task.CompletedTask;
     });
 });
 
+var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
+
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapOpenApi();            
+    app.MapScalarApiReference(); 
 }
 
-// --- Aplicando CORS ---
 app.UseCors("AllowAll");
-
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Necessário para testes de integração
+public partial class Program { }

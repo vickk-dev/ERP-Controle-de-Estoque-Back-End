@@ -1,6 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Ferramenteiro.Domain.Enums;
+
+// ── IMPORTANTE ────────────────────────────────────────────────────────────────
+// Se Cliente, Funcionario, Faturamento, LocacaoItem e Ferramenta estiverem no
+// mesmo namespace (ERP_Ferramenteiro.Domain.Entities), o using abaixo resolve
+// todos de uma vez. Ajuste o namespace caso alguma entidade fique em subpasta. 
+// ─────────────────────────────────────────────────────────────────────────────
 using Ferramenteiro.Domain.Entities;
 
 namespace Ferramenteiro.Domain.Entities
@@ -27,7 +33,6 @@ namespace Ferramenteiro.Domain.Entities
 
         public Locacao(Guid clienteId, Guid funcionarioId, DateTime dataFimPrevista)
         {
-            // Validações mantidas da HEAD por segurança
             if (clienteId == Guid.Empty) throw new ArgumentException("Cliente inválido.");
             if (funcionarioId == Guid.Empty) throw new ArgumentException("Funcionário inválido.");
             if (dataFimPrevista <= DateTime.UtcNow)
@@ -65,7 +70,6 @@ namespace Ferramenteiro.Domain.Entities
 
         public void EncerrarLocacao()
         {
-            // Validação mantida da HEAD para evitar encerramentos duplicados
             if (Status == StatusLocacao.Concluida)
                 throw new InvalidOperationException("Esta locação já foi encerrada anteriormente.");
 

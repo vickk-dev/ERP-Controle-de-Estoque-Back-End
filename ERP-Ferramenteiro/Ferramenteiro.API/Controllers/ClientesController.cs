@@ -1,28 +1,37 @@
-﻿
-using Ferramenteiro.API.DTOs;
-using Ferramenteiro.Application.Interfaces;
+﻿using Ferramenteiro.Application.DTOs;
+using Ferramenteiro.Application.UseCases.Clientes;
+using Ferramenteiro.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Ferramenteiro.API.Controllers
+namespace Ferramenteiro.API.Controllers;
+
+[ApiController]
+[Route("api/v1/clientes")]
+public class ClientesController : ControllerBase
 {
-    [ApiController]
-    [Route("api/v1/[controller]")] 
-    public class ClientesController : ControllerBase
+    private readonly CriarClienteUseCase _criarClienteUseCase;
+
+    public ClientesController(CriarClienteUseCase criarClienteUseCase)
     {
-        private readonly IClienteService _clienteService;
+        _criarClienteUseCase = criarClienteUseCase;
+    }
 
-        public ClientesController(IClienteService clienteService)
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
+    public async Task<IActionResult> CriarCliente(
+        [FromBody] CriarClienteDto dto,
+        CancellationToken cancellationToken)
+    {
+        try
         {
-            _clienteService = clienteService;
+            var cliente = await _criarClienteUseCase.ExecutarAsync(dto, cancellationToken);
+            return CreatedAtAction(nameof(CriarCliente), new { id = cliente.Id }, cliente);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Cadastrar(
-            [FromBody] CadastrarClienteRequest request,
-            CancellationToken cancellationToken)
+        catch (DocumentoDuplicadoException ex)
         {
-            var clienteId = await _clienteService.CadastrarAsync(request, cancellationToken);
-            return Created($"/api/v1/clientes/{clienteId}", new { id = clienteId });
+            return Conflict(new { mensagem = ex.Message });
         }
     }
 }
