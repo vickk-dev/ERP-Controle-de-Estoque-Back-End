@@ -1,33 +1,82 @@
-using ERP_Ferramenteiro.Application.Services;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Services;
-using ERP_Ferramenteiro.Ferramenteiro.Infra.Data;
-using ERP_Ferramenteiro.Infrastructure.Data; 
+using System.Net;
+using System.Text.Json;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Scalar.AspNetCore;
+
+// Namespaces do projeto
+using Ferramenteiro.API.Middleware;
+using Ferramenteiro.API.Validators;
+using Ferramenteiro.Application.Interfaces;
+using Ferramenteiro.Application.Services;
+using Ferramenteiro.Application.UseCases.Clientes;
+using Ferramenteiro.Infra.Data;
+using Ferramenteiro.Infra.Persistence;
+using Ferramenteiro.Infrastructure.Repositories;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<CriarClienteValidator>();
+
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<ILocacaoRepository, LocacaoRepository>();
+builder.Services.AddScoped<IFerramentaRepository, FerramentaRepository>();
 
 builder.Services.AddHttpClient<IViaCepService, ViaCepService>();
-
+builder.Services.AddScoped<EstoqueService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
+
+// Use Cases
+builder.Services.AddScoped<CriarClienteUseCase>();
+
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((doc, ctx, ct) =>
+    {
+        doc.Info.Title = "Ferramenteiro API";
+        doc.Info.Version = "v1";
+        doc.Info.Description = "ERP Ferramenteiro — módulo de Clientes, Estoque e Locações.";
+        return Task.CompletedTask;
+    });
+});
+
 var app = builder.Build();
+
+app.UseMiddleware<GlobalExceptionMiddleware>();
+
 
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapOpenApi();            
+    app.MapScalarApiReference(); 
 }
 
+app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Necessário para testes de integração
+public partial class Program { }

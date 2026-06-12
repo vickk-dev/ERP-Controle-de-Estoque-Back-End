@@ -1,10 +1,10 @@
-﻿using ERP_Ferramenteiro.Domain.Entities;
-using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
+﻿using Ferramenteiro.Domain.Entities;
+using Ferramenteiro.API.DTOs;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces
+namespace Ferramenteiro.Application.Interfaces
 {
     public interface IClienteService
     {

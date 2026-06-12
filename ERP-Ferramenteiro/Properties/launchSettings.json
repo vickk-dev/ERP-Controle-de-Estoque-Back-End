@@ -25,6 +25,9 @@
       },
       "publishAllPorts": true,
       "useSSL": true
+    },
+    "Perfil 1": {
+      "commandName": "Executable"
     }
   },
   "$schema": "https://json.schemastore.org/launchsettings.json"

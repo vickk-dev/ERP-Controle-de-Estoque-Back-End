@@ -1,12 +1,12 @@
-﻿using ERP_Ferramenteiro.Domain.Entities;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Ferramenteiro.Domain.Entities;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces
+namespace Ferramenteiro.Application.Interfaces
 {
     public interface IClienteRepository
     {
         Task<bool> ExistePorDocumentoAsync(string documentoLimpo, CancellationToken cancellationToken);
         Task AdicionarAsync(Cliente cliente, CancellationToken cancellationToken);
-
-
     }
 }

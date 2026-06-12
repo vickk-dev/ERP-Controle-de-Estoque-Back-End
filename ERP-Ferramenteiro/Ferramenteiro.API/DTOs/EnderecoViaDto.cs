@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.Application
+namespace Ferramenteiro.Application
 {
     public class EnderecoViaDto
     {
