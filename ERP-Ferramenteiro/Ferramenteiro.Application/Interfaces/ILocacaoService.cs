@@ -7,5 +7,7 @@ namespace Ferramenteiro.Application.Interfaces
     {
         Task<IEnumerable<LocacaoAtivaResponse>> ObterPainelAtivosAsync(CancellationToken cancellationToken);
         Task RegistrarDevolucaoAsync(Guid locacaoId, CancellationToken cancellationToken);
+        Task<Guid> AbrirLocacaoAsync(AbrirLocacaoRequest request, CancellationToken cancellationToken);
+
     }
 }

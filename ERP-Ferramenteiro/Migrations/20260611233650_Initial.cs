@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Ferramenteiro.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,22 +17,32 @@ namespace Ferramenteiro.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Tipo = table.Column<string>(type: "text", nullable: false),
-                    Documento = table.Column<string>(type: "text", nullable: false),
-                    NomeRazaoSocial = table.Column<string>(type: "text", nullable: false),
-                    NomeFantasia = table.Column<string>(type: "text", nullable: true),
-                    Telefone = table.Column<string>(type: "text", nullable: false),
-                    Logradouro = table.Column<string>(type: "text", nullable: false),
-                    Numero = table.Column<string>(type: "text", nullable: false),
-                    Bairro = table.Column<string>(type: "text", nullable: false),
-                    Cidade = table.Column<string>(type: "text", nullable: false),
-                    Estado = table.Column<string>(type: "text", nullable: false),
-                    Cep = table.Column<string>(type: "text", nullable: false),
-                    DataCadastro = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    TipoDocumento = table.Column<int>(type: "integer", nullable: false),
+                    Documento = table.Column<string>(type: "character varying(14)", maxLength: 14, nullable: false),
+                    NomeRazaoSocial = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Telefone = table.Column<string>(type: "character varying(11)", maxLength: 11, nullable: true),
+                    EnderecoCompleto = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    CriadoEm = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clientes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Contratos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ClienteNome = table.Column<string>(type: "text", nullable: false),
+                    ValorTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false),
+                    DataDevolucao = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contratos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,11 +53,11 @@ namespace Ferramenteiro.Migrations
                     PatrimonioId = table.Column<string>(type: "text", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false),
                     TipoTamanho = table.Column<string>(type: "text", nullable: false),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    ValorHora = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: true),
-                    ValorDia = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
-                    ValorSemana = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
-                    ValorMes = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false)
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    ValorHora = table.Column<decimal>(type: "numeric", nullable: true),
+                    ValorDia = table.Column<decimal>(type: "numeric", nullable: false),
+                    ValorSemana = table.Column<decimal>(type: "numeric", nullable: false),
+                    ValorMes = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,17 +65,19 @@ namespace Ferramenteiro.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Funcionarios",
+                name: "Funcionario",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Matricula = table.Column<string>(type: "text", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false),
-                    Ativo = table.Column<bool>(type: "boolean", nullable: false)
+                    Ativo = table.Column<bool>(type: "boolean", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    SenhaHash = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Funcionarios", x => x.Id);
+                    table.PrimaryKey("PK_Funcionario", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,8 +90,8 @@ namespace Ferramenteiro.Migrations
                     DataInicio = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DataFimPrevista = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DataDevolucaoReal = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    ValorTotal = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false)
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    ValorTotal = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -90,9 +103,9 @@ namespace Ferramenteiro.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Locacoes_Funcionarios_FuncionarioId",
+                        name: "FK_Locacoes_Funcionario_FuncionarioId",
                         column: x => x.FuncionarioId,
-                        principalTable: "Funcionarios",
+                        principalTable: "Funcionario",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -103,9 +116,9 @@ namespace Ferramenteiro.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     LocacaoId = table.Column<Guid>(type: "uuid", nullable: false),
-                    StatusPagamento = table.Column<string>(type: "text", nullable: false),
+                    StatusPagamento = table.Column<int>(type: "integer", nullable: false),
                     MetodoPagamento = table.Column<string>(type: "text", nullable: true),
-                    ValorFaturado = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
+                    ValorFaturado = table.Column<decimal>(type: "numeric", nullable: false),
                     DataVencimento = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     DataPagamento = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -127,9 +140,9 @@ namespace Ferramenteiro.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     LocacaoId = table.Column<Guid>(type: "uuid", nullable: false),
                     FerramentaId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TipoCobranca = table.Column<string>(type: "text", nullable: false),
+                    TipoCobranca = table.Column<int>(type: "integer", nullable: false),
                     QuantidadePeriodo = table.Column<int>(type: "integer", nullable: false),
-                    ValorUnitarioAplicado = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false)
+                    ValorUnitarioAplicado = table.Column<decimal>(type: "numeric", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -161,18 +174,6 @@ namespace Ferramenteiro.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ferramentas_PatrimonioId",
-                table: "Ferramentas",
-                column: "PatrimonioId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Funcionarios_Matricula",
-                table: "Funcionarios",
-                column: "Matricula",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_LocacaoItens_FerramentaId",
                 table: "LocacaoItens",
                 column: "FerramentaId");
@@ -197,6 +198,9 @@ namespace Ferramenteiro.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Contratos");
+
+            migrationBuilder.DropTable(
                 name: "Faturamentos");
 
             migrationBuilder.DropTable(
@@ -212,7 +216,7 @@ namespace Ferramenteiro.Migrations
                 name: "Clientes");
 
             migrationBuilder.DropTable(
-                name: "Funcionarios");
+                name: "Funcionario");
         }
     }
 }

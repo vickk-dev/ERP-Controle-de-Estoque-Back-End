@@ -31,16 +31,14 @@ namespace Ferramenteiro.Domain.Entities
 
         private Locacao() { }
 
-        public Locacao(Guid clienteId, Guid funcionarioId, DateTime dataFimPrevista)
+        public Locacao(Guid clienteId, DateTime dataFimPrevista)
         {
             if (clienteId == Guid.Empty) throw new ArgumentException("Cliente inválido.");
-            if (funcionarioId == Guid.Empty) throw new ArgumentException("Funcionário inválido.");
             if (dataFimPrevista <= DateTime.UtcNow)
                 throw new ArgumentException("A data de devolução prevista deve ser no futuro.");
 
             Id = Guid.NewGuid();
             ClienteId = clienteId;
-            FuncionarioId = funcionarioId;
             DataInicio = DateTime.UtcNow;
             DataFimPrevista = dataFimPrevista;
             Status = StatusLocacao.Aberta;

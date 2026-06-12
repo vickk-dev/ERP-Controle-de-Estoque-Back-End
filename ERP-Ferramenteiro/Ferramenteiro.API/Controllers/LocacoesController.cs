@@ -1,10 +1,11 @@
-﻿using Ferramenteiro.Application.Interfaces;
+﻿using Ferramenteiro.API.DTOs;
+using Ferramenteiro.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ferramenteiro.API.Controllers
 {
-    [Authorize]
+
     [ApiController]
     [Route("api/v1/contratos")]
     public class LocacoesController : ControllerBase
@@ -22,5 +23,18 @@ namespace Ferramenteiro.API.Controllers
                 var painel = await _locacaoService.ObterPainelAtivosAsync(cancellationToken);
                 return Ok(painel);
             }
+            [HttpPost]
+            public async Task<IActionResult> AbrirLocacao([FromBody] AbrirLocacaoRequest request, CancellationToken cancellationToken)
+            {
+            var locacaoId = await _locacaoService.AbrirLocacaoAsync(request, cancellationToken);
+
+            return Created($"/api/v1/locacoes/{locacaoId}", new
+            {
+                mensagem = "Locação iniciada com sucesso.",
+                id = locacaoId
+            });
         }
+    }
+
 }
+

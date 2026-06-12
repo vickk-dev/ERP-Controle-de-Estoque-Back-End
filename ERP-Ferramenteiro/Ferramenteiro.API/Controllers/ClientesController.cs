@@ -1,6 +1,7 @@
-﻿using Ferramenteiro.Application.DTOs;
-using Ferramenteiro.Application.UseCases.Clientes;
-using Ferramenteiro.Domain.Entities;
+﻿using Ferramenteiro.API.DTOs;
+using Ferramenteiro.Application.DTOs; // Os DTOs devem estar aqui
+using Ferramenteiro.Application.Interfaces;
+using Ferramenteiro.Domain.Entities; // Apenas para a Exception, se ela estiver aqui
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ferramenteiro.API.Controllers;
@@ -9,29 +10,37 @@ namespace Ferramenteiro.API.Controllers;
 [Route("api/v1/clientes")]
 public class ClientesController : ControllerBase
 {
-    private readonly CriarClienteUseCase _criarClienteUseCase;
+    private readonly IClienteService _clienteService;
 
-    public ClientesController(CriarClienteUseCase criarClienteUseCase)
+    public ClientesController(IClienteService clienteService)
     {
-        _criarClienteUseCase = criarClienteUseCase;
+        _clienteService = clienteService;
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<IActionResult> CriarCliente(
-        [FromBody] CriarClienteDto dto,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> CadastrarCliente(
+        [FromBody] CadastrarClienteRequest dto,
+        CancellationToken cancellationToken) 
     {
         try
         {
-            var cliente = await _criarClienteUseCase.ExecutarAsync(dto, cancellationToken);
-            return CreatedAtAction(nameof(CriarCliente), new { id = cliente.Id }, cliente);
+            var clienteId = await _clienteService.CadastrarAsync(dto, cancellationToken);
+
+           
+            return Created($"/api/v1/clientes/{clienteId}", new { id = clienteId });
         }
         catch (DocumentoDuplicadoException ex)
         {
+            
             return Conflict(new { mensagem = ex.Message });
+        }
+        catch (Exception ex)
+        {
+            
+            return BadRequest(new { mensagem = ex.Message });
         }
     }
 }

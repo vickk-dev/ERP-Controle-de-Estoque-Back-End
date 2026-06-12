@@ -16,12 +16,9 @@ namespace Ferramenteiro.Infra.Data
         }
 
         // Alterado de ExisteDocumentoAsync para ExistePorDocumentoAsync
-        public async Task<bool> ExistePorDocumentoAsync(string documento, CancellationToken cancellationToken)
-        {
-            return await _context.Clientes
+        public async Task<bool> ExistePorDocumentoAsync(string documento, CancellationToken cancellationToken) => await _context.Clientes
                 .AsNoTracking()
                 .AnyAsync(c => c.Documento == documento, cancellationToken);
-        }
 
         public async Task AdicionarAsync(Cliente cliente, CancellationToken cancellationToken)
         {
