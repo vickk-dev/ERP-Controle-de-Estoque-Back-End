@@ -1,7 +1,7 @@
-﻿using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
+﻿using Ferramenteiro.Application.Interfaces;
 using System.Net.Http.Json;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.Application.Services
+namespace Ferramenteiro.Application.Services
 {
     public class ViaCepService : IViaCepService
     {

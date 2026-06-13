@@ -1,1 +1,10 @@
-public enum TipoCobranca { Hora, Dia, Semana, Mes }
+namespace Ferramenteiro.Domain.Enums
+{
+    public enum TipoCobranca
+    {
+        Hora,
+        Dia,
+        Semana,
+        Mes
+    }
+}

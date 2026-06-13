@@ -1,10 +1,10 @@
-﻿
-using ERP_Ferramenteiro.Domain.Entities;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
-using ERP_Ferramenteiro.Infrastructure.Data;
+﻿using Ferramenteiro.Domain.Entities;
+using Ferramenteiro.Application.Interfaces;
+using Ferramenteiro.Infra.Data;
 using Microsoft.EntityFrameworkCore;
+using Ferramenteiro.Infra.Persistence;
 
-namespace ERP_Ferramenteiro.Ferramenteiro.Infra.Data
+namespace Ferramenteiro.Infra.Data
 {
     public class ClienteRepository : IClienteRepository
     {
@@ -15,12 +15,10 @@ namespace ERP_Ferramenteiro.Ferramenteiro.Infra.Data
             _context = context;
         }
 
-        public async Task<bool> ExisteDocumentoAsync(string documento, CancellationToken cancellationToken)
-        {
-            return await _context.Clientes
+        // Alterado de ExisteDocumentoAsync para ExistePorDocumentoAsync
+        public async Task<bool> ExistePorDocumentoAsync(string documento, CancellationToken cancellationToken) => await _context.Clientes
                 .AsNoTracking()
                 .AnyAsync(c => c.Documento == documento, cancellationToken);
-        }
 
         public async Task AdicionarAsync(Cliente cliente, CancellationToken cancellationToken)
         {

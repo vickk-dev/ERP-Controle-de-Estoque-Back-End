@@ -1,11 +1,9 @@
-﻿using ERP_Ferramenteiro.Application.DTOs; 
-using ERP_Ferramenteiro.Application.Interfaces;
-using ERP_Ferramenteiro.Domain.Entities;
-using ERP_Ferramenteiro.Ferramenteiro.API.DTOs;
-using ERP_Ferramenteiro.Ferramenteiro.Application.Interfaces;
-using ERP_Ferramenteiro.Ferramenteiro.Infra.Data;
+﻿using Ferramenteiro.Domain.Entities;
+using Ferramenteiro.API.DTOs;
+using Ferramenteiro.Application.Interfaces;
 
-namespace ERP_Ferramenteiro.Application.Services
+
+namespace Ferramenteiro.Application.Services
 {
     public class ClienteService : IClienteService
     {
@@ -34,10 +32,10 @@ namespace ERP_Ferramenteiro.Application.Services
                 throw new ArgumentException("CEP inválido ou inexistente na base dos Correios.");
             }
 
-         var cliente = new Cliente(
+            var cliente = new Cliente(
                 tipo: request.TipoDocumento,
                 documento: documentoLimpo,
-                nomeRazaoSocial: request.NomeRazaoSocial, 
+                nomeRazaoSocial: request.NomeRazaoSocial,
                 nomeFantasia: request.NomeFantasia,
                 telefone: request.Telefone,
                 logradouro: endereco.Logradouro,
@@ -48,12 +46,10 @@ namespace ERP_Ferramenteiro.Application.Services
                 cep: request.Cep
             );
 
-          
+
             await _clienteRepository.AdicionarAsync(cliente, cancellationToken);
 
             return cliente.Id;
         }
     }
-
-   
 }
