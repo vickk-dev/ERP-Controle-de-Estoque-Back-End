@@ -15,7 +15,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERP-Ferramenteiro")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< Updated upstream
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5289ba67a18b800a38088652afaae1890f71475e")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7491b4c4660d859999af2978bcdf61aa91c2083b")]
+>>>>>>> Stashed changes
 [assembly: System.Reflection.AssemblyProductAttribute("ERP-Ferramenteiro")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERP-Ferramenteiro")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
