@@ -6,5 +6,6 @@ namespace Ferramenteiro.Application.Interfaces
     {
         Task<IEnumerable<Locacao>> ObterLocacoesAtivasAsync(CancellationToken cancellationToken);
         Task<Locacao?> ObterLocacaoPorIdComVinculosAsync(Guid id, CancellationToken cancellationToken);
+        Task AdicionarAsync(Locacao locacao, CancellationToken cancellationToken);
     }
 }

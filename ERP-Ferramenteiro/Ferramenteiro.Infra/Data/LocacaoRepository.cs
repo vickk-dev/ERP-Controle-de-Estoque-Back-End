@@ -39,5 +39,10 @@ namespace Ferramenteiro.Infra.Data
                 .ThenInclude(i => i.Ferramenta)
                 .FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
         }
+
+        public async Task AdicionarAsync(Locacao locacao, CancellationToken cancellationToken)
+        {
+            await _context.Locacoes.AddAsync(locacao, cancellationToken);
+        }
     }
 }

@@ -11,10 +11,10 @@ using Ferramenteiro.API.Middleware;
 using Ferramenteiro.API.Validators;
 using Ferramenteiro.Application.Interfaces;
 using Ferramenteiro.Application.Services;
-using Ferramenteiro.Application.UseCases.Clientes;
 using Ferramenteiro.Infra.Data;
 using Ferramenteiro.Infra.Persistence;
 using Ferramenteiro.Infrastructure.Repositories;
+using Ferramenteiro.Ferramenteiro.Application.Services;
 
 
 
@@ -47,7 +47,7 @@ builder.Services.AddScoped<EstoqueService>();
 builder.Services.AddScoped<IClienteService, ClienteService>();
 
 // Use Cases
-builder.Services.AddScoped<CriarClienteUseCase>();
+builder.Services.AddScoped<CriarClienteService>();
 
 builder.Services.AddOpenApi(options =>
 {

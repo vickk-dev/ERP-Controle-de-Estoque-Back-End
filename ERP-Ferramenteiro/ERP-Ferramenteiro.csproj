@@ -45,14 +45,18 @@
 
 	<ItemGroup>
 		<Compile Remove="ERP-Ferramenteiro.Tests\**" />
+		<Compile Remove="Ferramenteiro.API\Middlewares\**" />
 		<Content Remove="ERP-Ferramenteiro.Tests\**" />
+		<Content Remove="Ferramenteiro.API\Middlewares\**" />
 		<EmbeddedResource Remove="ERP-Ferramenteiro.Tests\**" />
+		<EmbeddedResource Remove="Ferramenteiro.API\Middlewares\**" />
 		<None Remove="ERP-Ferramenteiro.Tests\**" />
+		<None Remove="Ferramenteiro.API\Middlewares\**" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Ferramenteiro.API\Controllers\" />
-		<Folder Include="Ferramenteiro.API\Middlewares\" />
+		<Folder Include="Ferramenteiro.Application\UseCasesClientes\" />
 		<Folder Include="Ferramenteiro.Domain\Exceptions\" />
 		<Folder Include="Ferramenteiro.Domain\Enums\" />
 		<Folder Include="Ferramenteiro.Infra\Persistence\" />
