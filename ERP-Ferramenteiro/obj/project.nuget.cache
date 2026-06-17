@@ -84,5 +84,15 @@
     "C:\\Users\\User\\.nuget\\packages\\xunit.extensibility.execution\\2.9.3\\xunit.extensibility.execution.2.9.3.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\xunit.runner.visualstudio\\3.1.5\\xunit.runner.visualstudio.3.1.5.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "message": "Problema ao ler o arquivo de cache C:\\Users\\User\\source\\repos\\ERP-Controle-de-Estoque-Back-End\\ERP-Ferramenteiro\\obj\\project.nuget.cache: '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "projectPath": "C:\\Users\\User\\source\\repos\\ERP-Controle-de-Estoque-Back-End\\ERP-Ferramenteiro\\ERP-Ferramenteiro.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\User\\source\\repos\\ERP-Controle-de-Estoque-Back-End\\ERP-Ferramenteiro\\ERP-Ferramenteiro.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

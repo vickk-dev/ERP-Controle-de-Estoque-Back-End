@@ -13,17 +13,9 @@ using System.Reflection;
 
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aba6c561-7a65-40ac-a696-b12617cec299")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERP-Ferramenteiro")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5289ba67a18b800a38088652afaae1890f71475e")]
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7491b4c4660d859999af2978bcdf61aa91c2083b")]
->>>>>>> Stashed changes
-=======
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+651659bee5c139971fa8625fd764c4e86704a2d4")]
->>>>>>> dd52afd86e4746ec5e2604f30e14780786a4515b
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24e7bd8c99fb41bd0a556ad4cbd451ab25a57a49")]
 [assembly: System.Reflection.AssemblyProductAttribute("ERP-Ferramenteiro")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERP-Ferramenteiro")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
